@@ -14,8 +14,11 @@ import java.util.List;
 @RequestMapping( "/api/v1")
 public class PropertyController {
 
-    @Value("${pms.dummy}")
+    @Value("${pms.dummy:}")
     private String dummy;
+
+    @Value("${spring.datasource.url:}")
+    private String dbUrl;
 
 
     @Autowired
@@ -37,6 +40,7 @@ public class PropertyController {
     @GetMapping("/properties")
     public ResponseEntity <List<PropertyDTO>> getAllproperties(){
         System.out.println(dummy);
+        System.out.println(dbUrl);
         List<PropertyDTO>  PropertyList = propertyService.getAllproperties();
        ResponseEntity<List<PropertyDTO>> ResponseEntity = new ResponseEntity<>(PropertyList, HttpStatus.OK);
        return ResponseEntity;
